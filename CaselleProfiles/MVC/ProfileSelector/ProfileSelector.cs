@@ -8,17 +8,18 @@ namespace CaselleProfiles.MVC.ProfileSelector
 {
   public partial class ProfileSelector : UserControl, IProfileSelector
   {
-    private readonly ProfileSelectorModel _model; //todo this is bad =\
+    private ProfileSelectorModel _model; //todo this is bad =\
 
     public ProfileSelector()
     {
       InitializeComponent();
+    }
 
+    public void Initialize()
+    {
       _model = new ProfileSelectorModel(this);
       _model.Initialize();
     }
-
-    #region Implementation of IProfileSelector
 
     private event Action<Profile> LocalProfileChanged;
 
@@ -26,6 +27,12 @@ namespace CaselleProfiles.MVC.ProfileSelector
     {
       add { LocalProfileChanged += value; }
       remove { LocalProfileChanged -= value; }
+    }
+
+    public bool OptionsVisible
+    {
+      get { return toolStripButton1.Visible; }
+      set { toolStripButton1.Visible = value; }
     }
 
     public Profile CurrentProfile
@@ -37,7 +44,9 @@ namespace CaselleProfiles.MVC.ProfileSelector
     void IProfileSelector.FillNames(IList<string> profiles)
     {
       profileComboBox.Items.Clear();
-      profileComboBox.Items.AddRange(profiles.Cast<object>().ToArray());
+      profileComboBox.Items.AddRange(Filter == null
+        ? profiles.Cast<object>().ToArray()
+        : profiles.Where(x => Filter(x)).Cast<object>().ToArray());
     }
 
     public string ProfileName
@@ -46,7 +55,7 @@ namespace CaselleProfiles.MVC.ProfileSelector
       set { profileComboBox.Text = value; }
     }
 
-    #endregion
+    public event Action OptionsClicked;
 
     private void profileComboBox_Click(object sender, EventArgs e)
     {
@@ -57,5 +66,12 @@ namespace CaselleProfiles.MVC.ProfileSelector
     {
       if (LocalProfileChanged != null) LocalProfileChanged(CurrentProfile);
     }
+
+    private void toolStripButton1_Click(object sender, EventArgs e)
+    {
+      if (OptionsClicked != null) OptionsClicked();
+    }
+
+    public Func<string, bool> Filter;
   }
 }
