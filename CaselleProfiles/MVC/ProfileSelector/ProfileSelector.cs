@@ -22,7 +22,7 @@ namespace CaselleProfiles.MVC.ProfileSelector
 
     private event Action<Profile> LocalProfileChanged;
 
-    event Action<Profile> IProfileSelector.ProfileChanged
+    public event Action<Profile> ProfileChanged
     {
       add { LocalProfileChanged += value; }
       remove { LocalProfileChanged -= value; }
@@ -38,6 +38,12 @@ namespace CaselleProfiles.MVC.ProfileSelector
     {
       profileComboBox.Items.Clear();
       profileComboBox.Items.AddRange(profiles.Cast<object>().ToArray());
+    }
+
+    public string ProfileName
+    {
+      get { return profileComboBox.Text; }
+      set { profileComboBox.Text = value; }
     }
 
     #endregion
