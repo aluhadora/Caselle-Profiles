@@ -20,9 +20,16 @@ namespace CaselleProfiles.Processes
       var profiles = new List<Profile>();
 
       var reg = new RegistryEditor(false);
-      foreach (var name in reg.ReadKeys())
+      try
       {
-        profiles.Add(BuildProfile(name));
+        foreach (var name in reg.ReadKeys())
+        {
+          profiles.Add(BuildProfile(name));
+        }
+      }
+      catch (Exception)
+      {
+        return new List<Profile>();
       }
 
       return profiles.OrderBy(x => x.Order).ToList();
