@@ -71,6 +71,15 @@
       <DependentUpon>FolderBrowseBox.cs</DependentUpon>
     </Compile>
     <Compile Include="MVC\ProfileDialog\ProfileDialogModel.cs" />
+    <Compile Include="MVC\ProfileSelector\IProfileSelector.cs" />
+    <Compile Include="MVC\ProfileSelector\ProfileSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MVC\ProfileSelector\ProfileSelector.Designer.cs">
+      <DependentUpon>ProfileSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MVC\ProfileSelector\ProfileSelectorModel.cs" />
+    <Compile Include="Processes\ProfilesProcess.cs" />
     <Compile Include="Processes\TortoiseHGProcess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MVC\ProfileDialog\ProfileDialog.resx">
       <DependentUpon>ProfileDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVC\ProfileSelector\ProfileSelector.resx">
+      <DependentUpon>ProfileSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
