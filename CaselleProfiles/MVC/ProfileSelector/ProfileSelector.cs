@@ -13,10 +13,7 @@ namespace CaselleProfiles.MVC.ProfileSelector
     public ProfileSelector()
     {
       InitializeComponent();
-    }
 
-    public void Initialize()
-    {
       _model = new ProfileSelectorModel(this);
       _model.Initialize();
     }
@@ -70,6 +67,11 @@ namespace CaselleProfiles.MVC.ProfileSelector
     private void toolStripButton1_Click(object sender, EventArgs e)
     {
       if (OptionsClicked != null) OptionsClicked();
+    }
+
+    public void Reload()
+    {
+      _model.Initialize();
     }
 
     public Func<string, bool> Filter;
